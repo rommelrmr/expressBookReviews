@@ -75,9 +75,45 @@ regd_users.post("/login", (req, res) => {
 
 // Agregar una reseña de libro
 regd_users.put("/auth/review/:isbn", (req, res) => {
-  // Escribir el código para agregar una reseña de libro
-  return res.status(300).json({ message: "Yet to be implemented" }); // Respuesta provisional
+  const isbn = req.params.isbn;
+  const { review } = req.body;
+
+   const username = req.session.authorization.username;
+ 
+  // Verificar si el libro existe en la lista de libros
+  if (books.hasOwnProperty(isbn)) {
+    // Agregar la nueva reseña al libro
+    books[isbn].reviews[username] = review;
+    res.status(200).json({ message: "Review added successfully" });
+  } else {
+    // Si el libro no existe, devolver un mensaje de error
+    res.status(404).json({ message: "Book not found" });
+  }
 });
+
+// Eliminar la reseña de un libro
+regd_users.delete("/auth/review/:isbn", (req, res) => {
+  const isbn = req.params.isbn;
+  
+  // Verificar si el libro existe en la lista de libros
+  if (books.hasOwnProperty(isbn)) {
+    const username = req.session.authorization.username;
+
+    // Verificar si el usuario tiene una reseña para este libro
+    if (books[isbn].reviews.hasOwnProperty(username)) {
+      // Eliminar la reseña del usuario para este libro
+      delete books[isbn].reviews[username];
+      res.status(200).json({ message: "Review deleted successfully" });
+    } else {
+      // Si el usuario no tiene una reseña para este libro, devolver un mensaje de error
+      res.status(404).json({ message: "User review not found for this book" });
+    }
+  } else {
+    // Si el libro no existe, devolver un mensaje de error
+    res.status(404).json({ message: "Book not found" });
+  }
+});
+
 
 // Exporta el router de Express para las rutas de usuarios registrados
 module.exports.authenticated = regd_users;

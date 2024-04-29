@@ -44,7 +44,7 @@ public_users.get("/", function (req, res) {
         // Si hay un error, rechazar la Promesa con el error
         reject(error);
       }
-    }, 5000); // 5000 milisegundos = 5 segundos
+    }, 2000); // 5000 milisegundos = 5 segundos
   })
     .then((booksJSON) => {
       // Una vez que la Promesa se resuelve, enviar la lista de libros disponibles
@@ -78,7 +78,7 @@ public_users.get("/isbn/:isbn", function (req, res) {
         // Si hay un error, rechazar la Promesa con el error
         reject(error);
       }
-    }, 5000); // 5000 milisegundos = 5 segundos
+    }, 2000); // 5000 milisegundos = 5 segundos
   })
     .then((bookDetails) => {
       // Una vez que la Promesa se resuelve, enviar los detalles del libro
@@ -106,7 +106,7 @@ public_users.get("/author/:author", function (req, res) {
         // Si hay un error, rechaza la Promesa
         reject(error);
       }
-    }, 5000); // 5000 milisegundos = 5 segundos
+    }, 2000); // 5000 milisegundos = 5 segundos
   })
     .then((result) => {
       // Una vez que la Promesa se resuelve, enviar los detalles de los libros
@@ -134,7 +134,7 @@ public_users.get("/title/:title", function (req, res) {
         // Si hay un error, rechaza la Promesa
         reject(error);
       }
-    }, 5000); // 5000 milisegundos = 5 segundos
+    }, 2000); // 5000 milisegundos = 5 segundos
   })
     .then((result) => {
       // Una vez que la Promesa se resuelve, enviar los detalles de los libros
